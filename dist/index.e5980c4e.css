@@ -1,0 +1,14 @@
+body{
+  background-color: white;
+  display: flex;
+  /* color: white; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+canvas{
+  margin-top: 30px;
+}
+/*# sourceMappingURL=index.e5980c4e.css.map */
