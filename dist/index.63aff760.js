@@ -520,15 +520,17 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"adjPd":[function(require,module,exports) {
 var _rotJs = require("rot-js");
+const HEIGHT = 20;
+const WIDTH = 20;
 const tileSet = document.createElement("img");
-tileSet.src = "https://opengameart.org/sites/default/files/preview_height128_trees_mega_pack_cc_by_3_0.png";
+tileSet.src = "https://raw.githubusercontent.com/ellertsmari/Timbermann/main/sprites.png";
 tileSet.onload = ()=>{
     console.log("hello");
     console.log(tileSet);
     const display = new _rotJs.Display({
         layout: "tile",
-        width: 20,
-        height: 20,
+        width: WIDTH,
+        height: HEIGHT,
         //fontSize: 12,
         //fontFamily: 'monospace',
         forceSquareRatio: true,
@@ -539,103 +541,37 @@ tileSet.onload = ()=>{
         tileSet: tileSet,
         tileMap: {
             '.': [
-                130,
+                200,
                 800
             ],
             '#': [
                 515,
                 565
+            ],
+            '@': [
+                122,
+                796
+            ],
+            'A': [
+                175,
+                800
             ]
         }
     });
     //display.drawText(0, 0, "Hello World");
     document.body.appendChild(display.getContainer());
-    const map = new _rotJs.Map.Cellular(20, 20);
+    const map = new _rotJs.Map.Cellular(HEIGHT, WIDTH);
     map.randomize(0.5);
     for(var i = 0; i < 4; i++)map.create();
     map.connect((x, y, wall)=>{
         //console.log(x, y,  wall ? '#' : '.')
         display.draw(x, y, wall ? '#' : '.', "green", "green");
     });
-} /*
-Map.prototype.getTile = function(x, y) {
-  if (x < 0 || x >= this._width || y < 0 || y >= this._height) {
-    return null;
-  }
-  return this._tiles[y][x];
-}
-
-const map = new Map(20, 20);
-map.randomize(0.5);
-for (let y = 0; y < map._height; y++) {
-  for (let x = 0; x < map._width; x++) {
-    const tile = map.getTile(x, y);
-    if (tile) {
-      tile.setColor(Color.fromString('#fff'));
-    }
-  }
-}
-
-for(let i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * map._width);
-  const y = Math.floor(Math.random() * map._height);
-  const tile = map.getTile(x, y);
-  if (tile) {
-    tile.setColor(Color.fromString('#f00'));
-  }
-}
-
-for(let i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * map._width);
-  const y = Math.floor(Math.random() * map._height);
-  const tile = map.getTile(x, y);
-  if (tile) {
-    tile.setColor(Color.fromString('#0f0'));
-  }
-}
-
-for(let i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * map._width);
-  const y = Math.floor(Math.random() * map._height);
-  const tile = map.getTile(x, y);
-  if (tile) {
-    tile.setColor(Color.fromString('#00f'));
-  }
-}
-
-for(let i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * map._width);
-  const y = Math.floor(Math.random() * map._height);
-  const tile = map.getTile(x, y);
-  if (tile) {
-    tile.setColor(Color.fromString('#ff0'));
-  }
-}
-
-for(let i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * map._width);
-  const y = Math.floor(Math.random() * map._height);
-  const tile = map.getTile(x, y);
-  if (tile) {
-    tile.setColor(Color.fromString('#0ff'));
-  }
-}
-
-for(let i = 0; i < 10; i++) {
-  const x = Math.floor(Math.random() * map._width);
-  const y = Math.floor(Math.random() * map._height);
-  const tile = map.getTile(x, y);
-  if (tile) {
-    tile.setColor(Color.fromString('#f0f'));
-  }
-}
-
-for(let i = 0; i < 10; i++) {
-  const display = new rot.Display(map._width, map._height);
-  display.draw(map);
-  display.compute(map);
-  display.draw(map);
-}*/ ;
+    display.draw(rand(WIDTH), rand(HEIGHT), "@", "green", "green");
+    display.draw(1, 1, "A", "green", "green");
+};
+const rand = (max, min = 0)=>Math.floor(Math.random() * (max - min + 1)) + min
+;
 
 },{"rot-js":"eoIlR"}],"eoIlR":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
