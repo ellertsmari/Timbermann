@@ -519,7 +519,10 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"adjPd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _rotJs = require("rot-js");
+var _keyboard = require("./game/keyboard");
+var _keyboardDefault = parcelHelpers.interopDefault(_keyboard);
 const HEIGHT = 20;
 const WIDTH = 20;
 const tileSet = document.createElement("img");
@@ -531,17 +534,14 @@ tileSet.onload = ()=>{
         layout: "tile",
         width: WIDTH,
         height: HEIGHT,
-        //fontSize: 12,
-        //fontFamily: 'monospace',
         forceSquareRatio: true,
         bg: "transparent",
         tileWidth: 40,
         tileHeight: 50,
-        //tileColorize: true,
         tileSet: tileSet,
         tileMap: {
             '.': [
-                200,
+                800,
                 800
             ],
             '#': [
@@ -567,13 +567,18 @@ tileSet.onload = ()=>{
         //console.log(x, y,  wall ? '#' : '.')
         display.draw(x, y, wall ? '#' : '.', "green", "green");
     });
-    display.draw(rand(WIDTH), rand(HEIGHT), "@", "green", "green");
+    const playerpos = [
+        rand(WIDTH),
+        rand(HEIGHT)
+    ];
+    display.draw(playerpos[0], playerpos[1], "@", "green", "green");
     display.draw(1, 1, "A", "green", "green");
+    _keyboardDefault.default(display, "@", playerpos);
 };
 const rand = (max, min = 0)=>Math.floor(Math.random() * (max - min + 1)) + min
 ;
 
-},{"rot-js":"eoIlR"}],"eoIlR":[function(require,module,exports) {
+},{"rot-js":"eoIlR","./game/keyboard":"1TiII","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eoIlR":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "RNG", ()=>_rngJsDefault.default
@@ -6778,6 +6783,45 @@ class Lighting {
 }
 exports.default = Lighting;
 
-},{"./color.js":"8jggZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["kQMTH","adjPd"], "adjPd", "parcelRequire3e35")
+},{"./color.js":"8jggZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1TiII":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const controllWithKeyboard = (Display, char, playerpos)=>{
+    document.onkeydown = (e)=>{
+        const map = {
+            "ArrowUp": [
+                0,
+                -1
+            ],
+            "ArrowDown": [
+                0,
+                1
+            ],
+            "ArrowLeft": [
+                -1,
+                0
+            ],
+            "ArrowRight": [
+                1,
+                0
+            ]
+        };
+        console.log(Display.Tile);
+        const nextSpot = [
+            playerpos[0] + map[e.key][0],
+            playerpos[1] + map[e.key][1]
+        ];
+        if (nextSpot[0] < 0 || nextSpot[0] > Display.getOptions().width || nextSpot[1] < 0 || nextSpot[1] > Display.getOptions().height) return;
+        if (Display.getContent(nextSpot[0], nextSpot[1]) === '#') return;
+        if (e.key in map) {
+            Display.draw(playerpos[0], playerpos[1], ".", "green", "green");
+            Display.draw(nextSpot[0], nextSpot[1], char, "green", "green");
+            playerpos = nextSpot;
+        }
+    };
+};
+exports.default = controllWithKeyboard;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["kQMTH","adjPd"], "adjPd", "parcelRequire3e35")
 
 //# sourceMappingURL=index.63aff760.js.map

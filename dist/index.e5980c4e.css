@@ -1,3 +1,13 @@
+*{
+  margin:0;
+  padding:0;
+  border: 0;
+}
+
+canvas{
+  margin:0;
+}
+
 body{
   background-color: white;
   display: flex;
@@ -8,7 +18,4 @@ body{
   font-family: 'Roboto', sans-serif;
 }
 
-canvas{
-  margin-top: 30px;
-}
 /*# sourceMappingURL=index.e5980c4e.css.map */
