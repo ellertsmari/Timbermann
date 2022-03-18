@@ -16,7 +16,8 @@ const controllWithKeyboard = (Display, char, playerpos) => {
     console.log(lmap.entities[nextSpot[0] + "," + nextSpot[1]])
     if(lmap.entities[nextSpot[0] + "," + nextSpot[1]].tile === "#") return;
     if(e.key in map){
-      Display.setOptions({tileMap: {...Display.tileMap, '@': [map[e.key][2], 800]}});
+      console.log(Display.tileMap);
+      //Display.setOptions({tileMap: {...Display.tileMap, '@': [map[e.key][2], 800]}});
       Display.draw(playerpos[0], playerpos[1], ".", "green",  "green");
       Display.draw(nextSpot[0], nextSpot[1], char, "green",  "green");
       playerpos = nextSpot;
